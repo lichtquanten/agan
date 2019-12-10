@@ -72,52 +72,52 @@ def build_generator(image_shape, masked_image_and_mask_shape):
     model = Sequential()
 
     # First layer (same dimensions)
-    model.add(Conv2D(64, kernel_size=5, strides=1, input_shape=masked_image_and_mask_shape, padding="same"))
+    model.add(Conv2D(16, kernel_size=5, strides=1, input_shape=masked_image_and_mask_shape, padding="same"))
     model.add(BatchNormalization(momentum=0.8))
     model.add(Activation("relu"))
 
     # First downsample
-    model.add(Conv2D(128, kernel_size=3, strides=2, padding="same"))
+    model.add(Conv2D(32, kernel_size=3, strides=2, padding="same"))
     model.add(BatchNormalization(momentum=0.8))
     model.add(Activation("relu"))
-    model.add(Conv2D(128, kernel_size=3, strides=1, padding="same"))
-    model.add(BatchNormalization(momentum=0.8))
-    model.add(Activation("relu"))
+    # model.add(Conv2D(128, kernel_size=3, strides=1, padding="same"))
+    # model.add(BatchNormalization(momentum=0.8))
+    # model.add(Activation("relu"))
 
     # Second Downsample to bottleneck
-    model.add(Conv2D(256, kernel_size=3, strides=2, padding="same"))
+    model.add(Conv2D(64, kernel_size=3, strides=2, padding="same"))
     model.add(BatchNormalization(momentum=0.8))
     model.add(Activation("relu"))
 
     for _ in range(2):
-        model.add(Conv2D(256, kernel_size=3, strides=1, padding="same"))
+        model.add(Conv2D(64, kernel_size=3, strides=1, padding="same"))
         model.add(BatchNormalization(momentum=0.8))
         model.add(Activation("relu"))
 
     # dilation layers
     for dilation_rate in [2, 4, 8, 16]:
-        model.add(Conv2D(256, kernel_size=3, dilation_rate=dilation_rate, strides=1, padding="same"))
+        model.add(Conv2D(64, kernel_size=3, dilation_rate=dilation_rate, strides=1, padding="same"))
         model.add(BatchNormalization(momentum=0.8))
         model.add(Activation("relu"))
 
     for _ in range(2):
-        model.add(Conv2D(256, kernel_size=3, strides=1, padding="same"))
+        model.add(Conv2D(64, kernel_size=3, strides=1, padding="same"))
         model.add(BatchNormalization(momentum=0.8))
         model.add(Activation("relu"))
 
     # First upsample
-    model.add(Conv2DTranspose(128, kernel_size=4, strides=2, padding="same"))
+    model.add(Conv2DTranspose(32, kernel_size=4, strides=2, padding="same"))
     model.add(BatchNormalization(momentum=0.8))
     model.add(Activation("relu"))
-    model.add(Conv2D(128, kernel_size=3, strides=1, padding="same"))
-    model.add(BatchNormalization(momentum=0.8))
-    model.add(Activation("relu"))
+    # model.add(Conv2D(128, kernel_size=3, strides=1, padding="same"))
+    # model.add(BatchNormalization(momentum=0.8))
+    # model.add(Activation("relu"))
 
     # Second upsample
-    model.add(Conv2DTranspose(64, kernel_size=4, strides=2, padding="same"))
+    model.add(Conv2DTranspose(16, kernel_size=4, strides=2, padding="same"))
     model.add(BatchNormalization(momentum=0.8))
     model.add(Activation("relu"))
-    model.add(Conv2D(32, kernel_size=3, strides=1, padding="same"))
+    model.add(Conv2D(8, kernel_size=3, strides=1, padding="same"))
     model.add(BatchNormalization(momentum=0.8))
     model.add(Activation("relu"))
 
