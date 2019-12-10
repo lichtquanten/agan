@@ -9,6 +9,12 @@ import data_loader, model_builder
 from trainer import Trainer, train
 import data_saver
 
+from tensorflow.compat.v1 import ConfigProto
+
+config = ConfigProto()
+config.gpu_options.allow_growth = True
+tf.compat.v1.keras.backend.set_session(tf.compat.v1.Session(config=config))
+
 def get_dirs(postfix):
     dirs = []
     for name in ['images', 'logs', 'weights']:
