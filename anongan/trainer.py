@@ -1,6 +1,8 @@
 import numpy as np
 import tensorflow as tf
 
+import data_saver
+
 class Trainer(object):
     def __init__(self, batches, generator, discriminator, full, batch_size, log_dir):
         self.batches = batches

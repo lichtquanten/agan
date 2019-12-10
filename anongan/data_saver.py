@@ -1,9 +1,6 @@
-from abc import ABC, abstractmethod
 import cv2
 import numpy as np
 import os
-
-import utils
 
 def save_weights(name, model, epoch, postfix):
     dir = os.path.join('weights', postfix)
