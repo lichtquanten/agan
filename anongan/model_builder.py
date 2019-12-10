@@ -27,7 +27,6 @@ def get_models(image_shape):
     generated_image = build_generator(image_shape, masked_image_and_mask_shape)(masked_image_and_mask)
     completed_image = Lambda(apply_mask, output_shape=image_shape)([generated_image, image, mask])
     completion_model = Model([image, mask], completed_image)
-    completion_model.summary()
 
     # Discriminator model
     validity = build_discriminator(image_shape)(image)
@@ -39,7 +38,6 @@ def get_models(image_shape):
     validity = discriminator_model(completion_model([image, mask]))
     full_model = Model([image, mask], validity)
     full_model.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=['accuracy'])
-    full_model.summary()
 
     return completion_model, discriminator_model, full_model
 
@@ -47,7 +45,6 @@ def build_discriminator(image_shape):
     g_disc = Sequential()
 
     g_disc.add(Conv2D(64, kernel_size=5, strides=2, padding="same", input_shape=image_shape))
-
     g_disc.add(BatchNormalization(momentum=0.8))
     g_disc.add(LeakyReLU(alpha=0.2))
 
