@@ -35,7 +35,7 @@ class MaskCreator(object):
 
     def create_mask(self):
         mask = np.zeros(self.mask_shape, np.uint8)
-        mask = cv2.rectangle(mask, (10,10), (50, 50), color=1, thickness=-1)
+        mask = cv2.rectangle(mask, (10,10), (30, 30), color=1, thickness=-1)
         return mask
 
 class ImageDataset(object):
