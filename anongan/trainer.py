@@ -68,10 +68,9 @@ class Trainer(object):
 
 def train(batches, trainer, num_batches, image_dir):
     image_saver = data_saver.ImageSaver(image_dir)
-
-    for i in range(10):
+    for i in range(num_batches):
         print('---%d---' % i)
         batch = next(batches)
-        generated_images = trainer.train_discriminator(batch)
-        trainer.train_generator(batch)
+        generated_images = trainer.train_discriminator_batch(batch)
+        trainer.train_generator_batch(batch)
         trainer.batch_idx += 1

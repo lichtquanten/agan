@@ -47,7 +47,7 @@ def main(config):
     image_dir, log_dir, weights_dir = get_dirs(postfix)
 
     # Train
-    trainer = Trainer(generator, discriminator, full, config['batch_size'], log_dir)
+    trainer = Trainer(batches, generator, discriminator, full, config['batch_size'], log_dir)
     train(batches, trainer, config['num_batches'], image_dir)
 
     # Save weights
